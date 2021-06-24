@@ -3,13 +3,15 @@
 
     <head>
         <title>Home</title>
+		<meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="src/css/styles.css">
         <script src="src/js/index.js"></script>
         <script src="https://unpkg.com/@polymer/paper-checkbox@next/paper-checkbox.js?module" type="module" ></script>
         <link href="https://cdn.jsdelivr.net/gh/vaibhav111tandon/vov.css@latest/vov.min.css" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    </head>
+        <script src="https://kit.fontawesome.com/29e066f58b.js" crossorigin="anonymous"></script>
+		<link rel="stylesheet" data-name="vs/editor/editor.main" href="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.25.2/min/vs/editor/editor.main.min.css">
+	</head>
 
     <body>
 
@@ -17,22 +19,27 @@
 
         <div id="mySidenav" class="sidenav">
         
-            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-            <a href="#">About</a>
-            <a href="https://github.com/fabyanMikhael/" class="fa">Github &#xf09b;</a>
-            <a href="https://www.linkedin.com/in/fabyan-mikhael/" class="fa">LinkedIn <span style="color: #1985bc;">&#xf08c;</span></a>
+            <a href="#" class="closebtn" onclick="closeNav()">&times;</a>
+            <a href="src/pages/about.html">About <i class="far fa-address-card"></i></a>
+            <a href="https://github.com/fabyanMikhael/">Github <i class="fab fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/fabyan-mikhael/">LinkedIn <i class="fab fa-linkedin" style="color: #1985bc;"></i></a>
             
         </div>
           
-        <div id="main" style="text-align: center;" class="vov fade-in slow">
-            <h1 style="font-size: 80px;">Fabyan Mikhael</h1>
-            <span class="vov fade-in slower">
-                
-                <h2>Site is still being worked on &#128056;</h2>
-                <h1>&#9935;</h1>
-            </span>
-        </div>
-          
+        <div id="main" style="text-align: center;">
+			<div id="content" class="vov fade-in slow">
+			
+			
+				<h1 style="font-size: 80px;">Fabyan Mikhael</h1>
+				<span class="vov fade-in slower">
+					<h2>🐸 Site is still being worked on 🐸</h2>
+					<h1>⛏</h1>
+				</span>
+
+			</div>	
+			
+		</div>
+		
     </body>
 
 </html>
