@@ -65,10 +65,10 @@ for template in templates:
         WriteTo(file=save_to, data=data)
         continue
 
-    path_to_src = os.path.relpath(SRC_PATH, os.path.dirname(template)) \
-                    .replace(TEMPLATE_FOLDER + "\\", "")               \
-                    .replace("\\","/")
-    '''[path_to_src] is the relative path to src in the structure, this is used to correctly reference the src file no matter where a template is'''
+    #path_to_src = os.path.relpath(SRC_PATH, os.path.dirname(template)) \
+    #                .replace(TEMPLATE_FOLDER + "\\", "")               \
+    #                .replace("\\","/")
+    #'''[path_to_src] is the relative path to src in the structure, this is used to correctly reference the src file no matter where a template is'''
 
-    rendered = environment.from_string(data).render(path_to_src=path_to_src)
+    rendered = environment.from_string(data).render(path_to_src="src")
     WriteTo(file=save_to, data=rendered)
