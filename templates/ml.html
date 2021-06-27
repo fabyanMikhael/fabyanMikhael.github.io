@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+{% block content %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.4.0/dist/chart.min.js" crossorigin="anonymous"></script>
+<script src="//unpkg.com/brain.js"></script>
+
+<h1>Simple Neural Network <br> <a href="https://www.chartjs.org/">📊 chart.js</a> + <a href="https://brain.js.org/">brain.js 🧠</a></h1>
+
+<div class="grid-container" style="font-family: FontAwesome;font-weight: bold;">
+    <div class="card">
+        <canvas id="myChart" width="50px" height="50px" style="width:400px !important; height: 600px !important;"></canvas>
+        
+        <div style="display: flex;justify-content: center;">
+            <button id = "predict_button">predict</button>
+            <input type="text" id = "input_predict">
+        </div>
+        <button id = "train_button">train</button>
+        <br>
+        <button id = "add_sample_button">add sample</button>
+        <h3>Input List <span style="font-weight: bolder; font-size: large;">=></span> Output List</h3>
+        <div style='display: flex;justify-content: center;'><input type="text" id = "input_element"> <span style="font-weight: bolder; font-size: xx-large;">=></span>&ensp; <input type="text" id = "output_element">  </div>
+        <ul class="grid-container" style="grid-template-columns: auto;" id = "list_ul">
+        </ul>
+    <h3 style="font-weight: normal;">output must be between 0 and 1 <br> Input and Output should be seperated by ,</h3>
+    </div>
+    
+</div>
+<script>
+    // provide optional config object (or undefined). Defaults shown.
+const config = {
+  binaryThresh: 0.5, // ¯\_(ツ)_/¯
+  hiddenLayers: [3], // array of ints for the sizes of the hidden layers in the network
+  activation: 'sigmoid' // supported activation types: ['sigmoid', 'relu', 'leaky-relu', 'tanh']
+};
+
+// create a simple feed forward neural network with backpropagation
+const net = new brain.NeuralNetwork(config);
+
+var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        datasets: [{
+            label: 'probability',
+            data: [],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            y: {
+                beginAtZero: true,
+            }
+            
+        }
+    }
+});
+
+function addData(chart, label, data) {
+    chart.data.labels.push(label);
+    chart.data.datasets.forEach((dataset) => {
+        dataset.data.push(data);
+    });
+    chart.update();
+}
+
+function removeData(chart, data) {
+    for (sample in data){
+        if(sample in chart.data.labels){
+            chart.data.datasets.forEach((dataset) => {
+                dataset.data[sample] = data[sample];
+            });
+        }
+        else {
+            addData(myChart, sample, data[sample]);
+        }
+        
+    }
+    for (label in chart.data.labels){
+        if (!label in data){
+            delete chart.data.labels[label];
+            chart.data.datasets.forEach((dataset) => {
+                delete dataset.data[label];
+            });
+        }
+    }
+    chart.update();
+}
+
+function UpdateChart(output){
+    removeData(myChart, output);
+}
+
+var ID_COUNT = 0
+let training_data = {};
+
+document.getElementById("add_sample_button").onclick = () => {
+    let input_element = document.getElementById("input_element")
+    let output_element = document.getElementById("output_element")
+    let input = input_element.value;
+    let output = output_element.value;
+    if (input == null || output == null || input == "" || output == ""){return;}
+    input_data = input.split(",");
+    output_data = output.split(",")
+    training_data[ID_COUNT] = {input: input, output: output};
+    document.getElementById("list_ul").innerHTML += `<div class='card sample' id='${ID_COUNT}' style='display: flex;justify-content: center; background-color: rgb(45, 75, 100);'> <button class='card' onclick='RemoveSample(${ID_COUNT})'>❌</button>  [${input_data}]  =>  [${output_data}] </div>`;
+    ID_COUNT += 1;
+}
+
+function RemoveSample(id){
+    document.getElementById(id).remove();
+    delete training_data[id];
+}
+
+var IsTraining = false;
+var CanTrain = true;
+document.getElementById("train_button").onclick = () => 
+{
+    if (IsTraining || !CanTrain){return;}
+    let training_data_list = [];
+    for (let sample in training_data) {
+        training_data_list.push(training_data[sample]);
+    }
+    net.train( training_data_list );
+};
+
+document.getElementById("predict_button").onclick = () => {
+    let inp = document.getElementById("input_predict");
+    let input = inp.value;
+    if (input == null || input == ""){return;}
+    input_data = input.split(",");
+    let output =  net.run(input_data);
+    UpdateChart(output);
+}
+
+</script>
+{% endblock %}
