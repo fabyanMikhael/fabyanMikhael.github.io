@@ -113,7 +113,7 @@ document.getElementById("add_sample_button").onclick = () => {
     input_data = input.split(",").map(i => parseInt(i));
     output_data = output.split(",").map(i => parseInt(i));
     training_data[ID_COUNT] = {input: input_data, output: output_data};
-    document.getElementById("list_ul").innerHTML += `<div class='card sample' id='sample_${ID_COUNT}' style='display: flex;justify-content: center; background-color: rgb(45, 75, 100);'> <button class='card' onclick='RemoveSample(sample_${ID_COUNT})'>❌</button>  [${input_data}]  =>  [${output_data}] </div>`;
+    document.getElementById("list_ul").innerHTML += `<div class='card sample' id='sample_${ID_COUNT}' style='display: flex;justify-content: center; background-color: rgb(45, 75, 100);'> <button class='card' onclick='RemoveSample("sample_${ID_COUNT}")'>❌</button>  [${input_data}]  =>  [${output_data}] </div>`;
     ID_COUNT += 1;
 }
 
