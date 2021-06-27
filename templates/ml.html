@@ -166,7 +166,7 @@ function ResetNeuralNetwork(){
     document.getElementById("input_element").value = "";
     document.getElementById("output_element").value = "";
     document.getElementById("input_predict").value = "";
-    document.getElementsByClassName("sample").forEach(i => i.remove());
+    let samples = Array.from(document.getElementsByClassName("sample")).map(i => i.remove());
     document.getElementById("reset_button").innerText = "reset ✔️"
     setTimeout(() => {document.getElementById("reset_button").innerText = "reset 🗑️"}, 500);
 }
