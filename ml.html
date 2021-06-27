@@ -41,12 +41,15 @@
         <canvas id="myChart" width="50px" height="50px" style="width:400px !important; height: 600px !important;"></canvas>
         
         <div style="display: flex;justify-content: center;">
-            <button id = "predict_button">predict</button>
+            <button id = "predict_button">predict 🔮</button>
             <input type="text" id = "input_predict">
         </div>
-        <button id = "train_button">train</button>
+        <div style="display: flex;justify-content: center;">
+            <button id = "reset_button" onclick="ResetNeuralNetwork()">Reset 🗑️</button>
+            <button id = "train_button">train 🏋️</button>
+        </div>
         <br>
-        <button id = "add_sample_button">add sample</button>
+        <button id = "add_sample_button">add sample ➕</button>
         <h3>Input List <span style="font-weight: bolder; font-size: large;">=></span> Output List</h3>
         <div style='display: flex;justify-content: center;'><input type="text" id = "input_element"> <span style="font-weight: bolder; font-size: xx-large;">=></span>&ensp; <input type="text" id = "output_element">  </div>
         <ul class="grid-container" style="grid-template-columns: auto;" id = "list_ul">
@@ -64,7 +67,7 @@ const config = {
 };
 
 // create a simple feed forward neural network with backpropagation
-const net = new brain.NeuralNetwork(config);
+var net = new brain.NeuralNetwork(config);
 
 var ctx = document.getElementById('myChart').getContext('2d');
 var myChart = new Chart(ctx, {
@@ -137,10 +140,10 @@ document.getElementById("add_sample_button").onclick = () => {
     let input = input_element.value;
     let output = output_element.value;
     if (input == null || output == null || input == "" || output == ""){return;}
-    input_data = input.split(",");
-    output_data = output.split(",")
-    training_data[ID_COUNT] = {input: input, output: output};
-    document.getElementById("list_ul").innerHTML += `<div class='card sample' id='${ID_COUNT}' style='display: flex;justify-content: center; background-color: rgb(45, 75, 100);'> <button class='card' onclick='RemoveSample(${ID_COUNT})'>❌</button>  [${input_data}]  =>  [${output_data}] </div>`;
+    input_data = input.split(",").map(i => parseInt(i));
+    output_data = output.split(",").map(i => parseInt(i));
+    training_data[ID_COUNT] = {input: input_data, output: output_data};
+    document.getElementById("list_ul").innerHTML += `<div class='card sample' id='sample_${ID_COUNT}' style='display: flex;justify-content: center; background-color: rgb(45, 75, 100);'> <button class='card' onclick='RemoveSample(sample_${ID_COUNT})'>❌</button>  [${input_data}]  =>  [${output_data}] </div>`;
     ID_COUNT += 1;
 }
 
@@ -158,16 +161,40 @@ document.getElementById("train_button").onclick = () =>
     for (let sample in training_data) {
         training_data_list.push(training_data[sample]);
     }
+    IsTraining = true;
+    document.getElementById("train_button").innerText = "train ⌛"
     net.train( training_data_list );
+    IsTraining = false;
+    document.getElementById("train_button").innerText = "train ✔️"
+    setTimeout(() => {document.getElementById("train_button").innerText = "train 🏋️"}, 1000);
 };
 
 document.getElementById("predict_button").onclick = () => {
     let inp = document.getElementById("input_predict");
     let input = inp.value;
     if (input == null || input == ""){return;}
-    input_data = input.split(",");
+    document.getElementById("predict_button").innerText = "predict ⌛"
+    CanTrain = false;
+    input_data = input.split(",").map(i => parseInt(i));
     let output =  net.run(input_data);
     UpdateChart(output);
+    CanTrain = true;
+    document.getElementById("predict_button").innerText = "predict ✔️"
+    setTimeout(() => {document.getElementById("predict_button").innerText = "predict 🔮"}, 500);
+}
+
+function ResetNeuralNetwork(){
+    document.getElementById("reset_button").innerText = "reset ⌛"
+    chart.data.labels.pop();
+    chart.data.datasets.forEach((dataset) => {
+        delete dataset.data.pop();
+    });
+    net = new brain.NeuralNetwork(config);
+    training_data = {};
+    CanTrain = true;
+    IsTraining = false;
+    document.getElementById("reset_button").innerText = "reset ✔️"
+    setTimeout(() => {document.getElementById("reset_button").innerText = "reset 🗑️"}, 500);
 }
 
 </script>
