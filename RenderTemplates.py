@@ -1,6 +1,6 @@
 from jinja2 import Environment
 from jinja2.loaders import FileSystemLoader
-import os, os.path,errno
+import os, os.path,errno, shutil
 
 #################### CONSTANTS ####################
 TEMPLATE_FOLDER = "templates"
@@ -55,20 +55,22 @@ for template in templates:
 
     if "base.html" in template.lower(): continue
 
-    data = "".join(open(template, encoding="utf8").readlines()) #Gets the text content from the [template] file
+    
     save_to = template.removeprefix(TEMPLATE_FOLDER + "\\") #this is where the file will be saved, (keeping structure of the original [TEMPLATE_FOLDER] folder)
 
     if not template.lower().endswith(".html"):
         '''if the file is not an html file, do not attempt to render
         simply save it while keeping its relative position to [TEMPLATE_FOLDER]
         '''
-        WriteTo(file=save_to, data=data)
+        mkdir_p(os.path.dirname(save_to))
+        shutil.copyfile(template, save_to)
+
         continue
 
     #path_to_src = os.path.relpath(SRC_PATH, os.path.dirname(template)) \
     #                .replace(TEMPLATE_FOLDER + "\\", "")               \
     #                .replace("\\","/")
     #'''[path_to_src] is the relative path to src in the structure, this is used to correctly reference the src file no matter where a template is'''
-
+    data = "".join(open(template, encoding="utf8").readlines()) #Gets the text content from the [template] file
     rendered = environment.from_string(data).render(path_to_src="src")
     WriteTo(file=save_to, data=rendered)
