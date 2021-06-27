@@ -154,14 +154,16 @@ document.getElementById("predict_button").onclick = () => {
 
 function ResetNeuralNetwork(){
     document.getElementById("reset_button").innerText = "reset ⌛"
-    chart.data.labels.pop();
-    chart.data.datasets.forEach((dataset) => {
+    myChart.data.labels.pop();
+    myChart.data.datasets.forEach((dataset) => {
         delete dataset.data.pop();
     });
+    myChart.update()
     net = new brain.NeuralNetwork(config);
     training_data = {};
     CanTrain = true;
     IsTraining = false;
+    document.getElementsByClassName("sample").forEach(i => i.remove());
     document.getElementById("reset_button").innerText = "reset ✔️"
     setTimeout(() => {document.getElementById("reset_button").innerText = "reset 🗑️"}, 500);
 }
