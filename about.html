@@ -5,6 +5,7 @@
         <title>Home</title>
 		<meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
         <script src="https://unpkg.com/@polymer/paper-checkbox@next/paper-checkbox.js?module" type="module" ></script>
         <link href="https://cdn.jsdelivr.net/gh/vaibhav111tandon/vov.css@latest/vov.min.css" rel="stylesheet" type="text/css">
         <script src="https://kit.fontawesome.com/29e066f58b.js" crossorigin="anonymous"></script>
@@ -33,7 +34,6 @@
 				
 <h1 style="font-size: 80px;">About 🎉</h1>
 <span class="vov fade-in slower">
-
     <div class="grid-container" style="font-family: FontAwesome;font-weight: bold;">
         
         <div class="card">
@@ -45,19 +45,64 @@
             </div>       
         </div>
 
+        
+
         <div class="card">
             <h2 style="font-size: xx-large; text-shadow: 2 2px #000000;">Languages</h2>
-            <div class="grid-container" style="grid-template-columns: auto auto auto;">
-                <div class="card">Python <i class="fab fa-python" style="color: rgb(0, 174, 255);"></i></div>
-                <div class="card">Rust <i class="fab fa-rust" style="color: rgb(184, 124, 12);"></i></div>
-                <div class="card">Java <i class="fab fa-java" style="color: red"></i></div>
-                <div class="card">C++ 🖥️</div>
-                <div class="card">JavaScript <i class="fab fa-js-square" style="color: rgb(231, 65, 107);"></i></div>
-                <div class="card">CSS <i class="fab fa-css3-alt" style="color: rgb(21, 180, 21)"></i></div>
-                <div class="card">HTML <i class="fab fa-html5" style="color: rgb(42, 132, 235); font-weight: bolder;"></i></div>
+            <div class="grid-container" style="grid-template-columns: auto;">
+
+                <div class="card">
+                    Python
+                    <div class="container">
+                        <div class="skills python"><i class="fab fa-python"></i></div>
+                      </div>
+                </div>
+
+                <div class="card">
+                    Rust 
+                    <div class="container">
+                        <div class="skills rust"><i class="fab fa-rust"></i></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    Java 
+                    <div class="container">
+                        <div class="skills java"><i class="fab fa-java"></i></div>
+                    </div>
+                    
+                </div>
+
+                <div class="card">
+                    C++ 
+                    <div class="container">
+                        <div class="skills cpp" style="padding-right: 2%;">C++</div>
+                    </div> 
+                </div>
+
+                <div class="card">
+                    JavaScript
+                    <div class="container">
+                        <div class="skills js"><i class="fab fa-js-square"></i></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    CSS 
+                    <div class="container">
+                        <div class="skills css"><i class="fab fa-css3-alt"></i></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    HTML 
+                    <div class="container">
+                        <div class="skills html"><i class="fab fa-html5" style="font-weight: bolder;"></i></div>
+                    </div>
+                </div>
+
             </div>       
         </div>
-
         <div class="card">
             <h2 style="font-size: xx-large; text-shadow: 2 2px #000000;">Technology</h2>
             <div class="grid-container" style="grid-template-columns: auto auto auto;">
@@ -80,7 +125,7 @@
 			</div>	
 			
 		</div>
-		
+		<script type="text/javascript" src="/src/js/tilt.js"></script>
     </body>
 
 </html>

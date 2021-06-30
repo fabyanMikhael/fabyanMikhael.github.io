@@ -110,3 +110,34 @@ font-family: var(--font-family);
   text-align: center;
   padding: 20px 0;
 }
+
+/* progress bars */
+
+/* Make sure that padding behaves as expected */
+* {box-sizing:border-box}
+
+/* Container for skill bars */
+
+.container {
+  width: 100%; /* Full width */
+}
+
+.container div i {
+  margin-right: 3%;
+  color: white;
+}
+
+.skills {
+  text-align: right; /* Right-align text */
+  padding-top: 10px; /* Add top padding */
+  padding-bottom: 10px; /* Add bottom padding */
+  color: white; /* White text color */
+  border-radius: 15px;
+}
+.python {width: 75%; background-color: rgb(0, 174, 255);} 
+.rust {width: 37%; background-color: rgb(184, 124, 12);}
+.java {width: 55%; background-color: red;}
+.cpp {width: 20%; background-color: gray;}
+.js {width: 50%; background-color: rgb(231, 65, 107);} 
+.css {width: 30%; background-color: rgb(21, 180, 21);} 
+.html {width: 35%; background-color: rgb(42, 132, 235);}
